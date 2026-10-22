@@ -335,14 +335,23 @@ p { text-wrap: pretty; }
 /* ==========================================================================
    Experience — the paper band
    ========================================================================== */
+/* The experience band: a lifted indigo night, lit at opposite corners by the
+   logo's cyan and violet, edged with hairlines of the D. Same in both themes,
+   so the gradient numbers always glow on dark. */
 .proof {
-  --fg: #081236; --fg-2: #26325A; --muted: #56618A; --line: rgba(10, 24, 80, .1); --line-2: rgba(10, 24, 80, .18);
-  background: radial-gradient(50% 90% at 100% 0%, rgba(var(--ion-rgb), .10), transparent 70%), #F1F2FA; color: var(--fg-2); padding: clamp(80px, 10vw, 136px) 0; position: relative; overflow: hidden;
+  --fg: #F1F2FA; --fg-2: #C9D1EE; --muted: #97A3D0; --line: rgba(140, 170, 255, .14); --line-2: rgba(140, 170, 255, .24);
+  background:
+    radial-gradient(55% 110% at 100% 0%, rgba(var(--ion-rgb), .16), transparent 62%),
+    radial-gradient(45% 100% at 0% 100%, rgba(var(--iris-rgb), .22), transparent 62%),
+    linear-gradient(180deg, #0C1A4F 0%, #091442 55%, #0B1040 100%);
+  color: var(--fg-2); padding: clamp(80px, 10vw, 136px) 0; position: relative; overflow: hidden; isolation: isolate;
 }
-:root[data-theme="light"] .proof {
-  --fg: #EEF1F6; --fg-2: #C5CCD8; --muted: #8B95A7; --line: rgba(140, 170, 255, .14); --line-2: rgba(140, 170, 255, .24);
-  background: #081236;
+.proof::before, .proof::after {
+  content: ""; position: absolute; inset-inline: 0; height: 1px; z-index: -1;
+  background: linear-gradient(90deg, transparent, rgba(var(--ion-rgb), .7) 20%, rgba(var(--azure-rgb), .7) 55%, rgba(var(--iris-rgb), .7) 85%, transparent);
 }
+.proof::before { top: 0; }
+.proof::after { bottom: 0; opacity: .5; }
 .proof-grid { display: grid; grid-template-columns: 6fr 6fr; gap: 40px 64px; align-items: end; }
 .proof-copy { display: grid; gap: 22px; }
 .stats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line-2); }
