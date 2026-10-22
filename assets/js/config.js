@@ -6,9 +6,10 @@
 window.ORAFDEV = {
   contact: {
     // Digits only, with country code, e.g. "201234567890"
-    whatsapp: "",
+    whatsapp: "601162256809",
     email: "",
-    instagram: "",
+    // Full profile links. Any channel left empty stays hidden on the site.
+    instagram: "https://www.instagram.com/orafdev/",
     linkedin: "",
     github: "",
   },

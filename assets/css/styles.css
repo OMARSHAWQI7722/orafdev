@@ -727,6 +727,11 @@ p { text-wrap: pretty; }
 .channels a { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: var(--r-m); border: 1px solid var(--line-2); color: var(--fg); font-size: .9375rem; transition: border-color .25s, background .25s; }
 .channels a:hover { border-color: var(--line-3); background: var(--surface-2); }
 .channels li[data-missing], .socials li[data-missing] { display: none; }
+/* Instagram: the glyph in the logo's gradient, then the handle */
+.channels a, .socials a { gap: 9px; }
+.socials a { display: inline-flex; align-items: center; }
+svg.ig { width: 19px; height: 19px; flex: none; fill: none; stroke: var(--accent-text); stroke-width: 1.8; }
+svg.ig .ig-dot { fill: var(--accent-text); stroke: none; }
 
 .form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; padding: clamp(24px, 3.5vw, 44px); border-radius: var(--r-xl); border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow-2); }
 .field { display: grid; gap: 8px; align-content: start; }

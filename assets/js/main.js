@@ -21,10 +21,11 @@
   /* ---------- Config: contacts, links, screenshots ---------- */
   const c = cfg.contact || {};
   const waText = encodeURIComponent(cfg.whatsappMessage || '');
+  // Social profiles are used as given; WhatsApp and email are turned into links.
   const urls = {
+    ...c,
     whatsapp: c.whatsapp ? `https://wa.me/${c.whatsapp.replace(/\D/g, '')}?text=${waText}` : '',
     email: c.email ? `mailto:${c.email}` : '',
-    instagram: c.instagram, linkedin: c.linkedin, github: c.github,
   };
   $$('[data-channel]').forEach(li => {
     const url = urls[li.dataset.channel];
