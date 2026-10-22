@@ -22,7 +22,7 @@ async function init() {
 
   try { await Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1200))]); } catch (e) {}
 
-  const C = { cyan: '#7DD9EE', blue: '#5B8CFF', violet: '#8E8CF5', white: '#FFFFFF', text: '#C5CCD8', muted: '#8B95A7', hull: 'rgba(11,18,32,0.78)', line: 'rgba(170,182,204,0.22)' };
+  const C = { cyan: '#00BBFF', blue: '#2F5BFB', violet: '#6627FA', white: '#FFFFFF', text: '#C9D1EE', muted: '#8E9AC6', hull: 'rgba(8,17,48,0.78)', line: 'rgba(140,170,255,0.22)' };
   const FONT = '"Archivo", system-ui, sans-serif';
   const MONO = 'ui-monospace, "Cascadia Code", Consolas, monospace';
   const PX = lowPower ? 150 : 220; // texture pixels per world unit
@@ -37,14 +37,14 @@ async function init() {
     // glass body
     g.beginPath(); g.roundRect(2, 2, cw - 4, ch - 4, r);
     const body = g.createLinearGradient(0, 0, 0, ch);
-    body.addColorStop(0, 'rgba(21,26,36,0.9)');
-    body.addColorStop(1, 'rgba(10,13,19,0.86)');
+    body.addColorStop(0, 'rgba(15,27,66,0.9)');
+    body.addColorStop(1, 'rgba(7,14,40,0.86)');
     g.fillStyle = body; g.fill();
     // edge light: cyan on top-left fading to faint
     const stroke = g.createLinearGradient(0, 0, cw, ch);
     stroke.addColorStop(0, edge);
-    stroke.addColorStop(0.45, 'rgba(91,140,255,0.35)');
-    stroke.addColorStop(1, 'rgba(170,182,204,0.18)');
+    stroke.addColorStop(0.45, 'rgba(47,91,251,0.35)');
+    stroke.addColorStop(1, 'rgba(140,170,255,0.18)');
     g.lineWidth = Math.max(2, PX / 90); g.strokeStyle = stroke; g.stroke();
     // inner highlight
     g.save(); g.clip();
@@ -65,27 +65,27 @@ async function init() {
   const designs = {
     browser: (g, w, h, u) => {
       const p = u * 0.16;
-      [0, 1, 2].forEach(i => { g.beginPath(); g.arc(p + i * u * 0.11, p, u * 0.032, 0, Math.PI * 2); g.fillStyle = 'rgba(170,182,204,0.45)'; g.fill(); });
-      rr(g, w * 0.28, p - u * 0.05, w * 0.44, u * 0.1, u * 0.05, 'rgba(170,182,204,0.12)');
-      g.fillStyle = 'rgba(170,182,204,0.18)'; g.fillRect(0, u * 0.32, w, 2);
+      [0, 1, 2].forEach(i => { g.beginPath(); g.arc(p + i * u * 0.11, p, u * 0.032, 0, Math.PI * 2); g.fillStyle = 'rgba(140,170,255,0.45)'; g.fill(); });
+      rr(g, w * 0.28, p - u * 0.05, w * 0.44, u * 0.1, u * 0.05, 'rgba(140,170,255,0.12)');
+      g.fillStyle = 'rgba(140,170,255,0.18)'; g.fillRect(0, u * 0.32, w, 2);
       // nav
       rr(g, p, u * 0.45, u * 0.42, u * 0.07, 4, 'rgba(229,231,235,0.7)');
-      [0, 1, 2].forEach(i => rr(g, w - p - u * 0.95 + i * u * 0.3, u * 0.465, u * 0.2, u * 0.04, 3, 'rgba(170,182,204,0.35)'));
+      [0, 1, 2].forEach(i => rr(g, w - p - u * 0.95 + i * u * 0.3, u * 0.465, u * 0.2, u * 0.04, 3, 'rgba(140,170,255,0.35)'));
       // hero copy
       rr(g, p, u * 0.72, w * 0.5, u * 0.13, 6, 'rgba(255,255,255,0.88)');
       rr(g, p, u * 0.92, w * 0.38, u * 0.13, 6, grad(g, p, 0, p + w * 0.38, 0, [[0, C.cyan], [1, C.blue]]));
-      rr(g, p, u * 1.15, w * 0.44, u * 0.045, 3, 'rgba(170,182,204,0.4)');
-      rr(g, p, u * 1.24, w * 0.34, u * 0.045, 3, 'rgba(170,182,204,0.4)');
+      rr(g, p, u * 1.15, w * 0.44, u * 0.045, 3, 'rgba(140,170,255,0.4)');
+      rr(g, p, u * 1.24, w * 0.34, u * 0.045, 3, 'rgba(140,170,255,0.4)');
       rr(g, p, u * 1.4, u * 0.5, u * 0.14, u * 0.04, C.cyan);
       // visual block right
       const vx = w * 0.6, vy = u * 0.66, vw = w - vx - p, vh = u * 0.9;
-      rr(g, vx, vy, vw, vh, u * 0.06, grad(g, vx, vy, vx + vw, vy + vh, [[0, 'rgba(125,217,238,0.28)'], [0.6, 'rgba(91,140,255,0.2)'], [1, 'rgba(142,140,245,0.25)']]));
+      rr(g, vx, vy, vw, vh, u * 0.06, grad(g, vx, vy, vx + vw, vy + vh, [[0, 'rgba(0,187,255,0.28)'], [0.6, 'rgba(47,91,251,0.2)'], [1, 'rgba(102,39,250,0.25)']]));
       // cards row
       const cy = h - u * 0.62, cwid = (w - p * 2 - u * 0.2) / 3;
       [0, 1, 2].forEach(i => {
-        rr(g, p + i * (cwid + u * 0.1), cy, cwid, u * 0.45, u * 0.05, 'rgba(170,182,204,0.10)');
-        rr(g, p + i * (cwid + u * 0.1) + u * 0.08, cy + u * 0.09, u * 0.12, u * 0.12, u * 0.03, i === 1 ? C.cyan : 'rgba(91,140,255,0.6)');
-        rr(g, p + i * (cwid + u * 0.1) + u * 0.08, cy + u * 0.28, cwid * 0.6, u * 0.04, 3, 'rgba(170,182,204,0.35)');
+        rr(g, p + i * (cwid + u * 0.1), cy, cwid, u * 0.45, u * 0.05, 'rgba(140,170,255,0.10)');
+        rr(g, p + i * (cwid + u * 0.1) + u * 0.08, cy + u * 0.09, u * 0.12, u * 0.12, u * 0.03, i === 1 ? C.cyan : 'rgba(47,91,251,0.6)');
+        rr(g, p + i * (cwid + u * 0.1) + u * 0.08, cy + u * 0.28, cwid * 0.6, u * 0.04, 3, 'rgba(140,170,255,0.35)');
       });
     },
     dashboard: (g, w, h, u) => {
@@ -94,29 +94,29 @@ async function init() {
       g.font = `500 ${u * 0.08}px ${FONT}`; g.fillStyle = C.muted; g.fillText('Mon – Sun', p, p + u * 0.22);
       // line chart
       const x0 = p, y0 = u * 0.5, cw = w - p * 2, chh = h * 0.42;
-      for (let i = 0; i < 4; i++) { g.fillStyle = 'rgba(170,182,204,0.12)'; g.fillRect(x0, y0 + (chh / 3) * i, cw, 1.5); }
+      for (let i = 0; i < 4; i++) { g.fillStyle = 'rgba(140,170,255,0.12)'; g.fillRect(x0, y0 + (chh / 3) * i, cw, 1.5); }
       const pts = [0.62, 0.5, 0.56, 0.32, 0.4, 0.18, 0.24].map((v, i) => [x0 + (cw / 6) * i, y0 + chh * v]);
       g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y));
       g.lineTo(x0 + cw, y0 + chh); g.lineTo(x0, y0 + chh); g.closePath();
-      g.fillStyle = grad(g, 0, y0, 0, y0 + chh, [[0, 'rgba(125,217,238,0.32)'], [1, 'rgba(125,217,238,0)']]); g.fill();
+      g.fillStyle = grad(g, 0, y0, 0, y0 + chh, [[0, 'rgba(0,187,255,0.32)'], [1, 'rgba(0,187,255,0)']]); g.fill();
       g.beginPath(); pts.forEach(([x, y], i) => i ? g.lineTo(x, y) : g.moveTo(x, y));
       g.strokeStyle = C.cyan; g.lineWidth = u * 0.022; g.lineJoin = 'round'; g.stroke();
       pts.forEach(([x, y], i) => { if (i === 5) { g.beginPath(); g.arc(x, y, u * 0.04, 0, Math.PI * 2); g.fillStyle = C.white; g.fill(); } });
       // stat tiles
       const ty = h - u * 0.5, tw = (cw - u * 0.1) / 2;
       [0, 1].forEach(i => {
-        rr(g, x0 + i * (tw + u * 0.1), ty, tw, u * 0.34, u * 0.05, 'rgba(170,182,204,0.10)');
-        rr(g, x0 + i * (tw + u * 0.1) + u * 0.08, ty + u * 0.08, tw * 0.35, u * 0.07, 3, i ? 'rgba(142,140,245,0.8)' : 'rgba(91,140,255,0.85)');
-        rr(g, x0 + i * (tw + u * 0.1) + u * 0.08, ty + u * 0.2, tw * 0.6, u * 0.04, 3, 'rgba(170,182,204,0.35)');
+        rr(g, x0 + i * (tw + u * 0.1), ty, tw, u * 0.34, u * 0.05, 'rgba(140,170,255,0.10)');
+        rr(g, x0 + i * (tw + u * 0.1) + u * 0.08, ty + u * 0.08, tw * 0.35, u * 0.07, 3, i ? 'rgba(102,39,250,0.8)' : 'rgba(47,91,251,0.85)');
+        rr(g, x0 + i * (tw + u * 0.1) + u * 0.08, ty + u * 0.2, tw * 0.6, u * 0.04, 3, 'rgba(140,170,255,0.35)');
       });
     },
     phone: (g, w, h, u) => {
       const p = u * 0.1;
-      rr(g, w / 2 - u * 0.14, u * 0.07, u * 0.28, u * 0.05, u * 0.025, 'rgba(170,182,204,0.35)');
-      rr(g, p, u * 0.22, w - p * 2, u * 0.62, u * 0.07, grad(g, 0, u * 0.22, w, u * 0.84, [[0, 'rgba(142,140,245,0.45)'], [1, 'rgba(125,217,238,0.3)']]));
+      rr(g, w / 2 - u * 0.14, u * 0.07, u * 0.28, u * 0.05, u * 0.025, 'rgba(140,170,255,0.35)');
+      rr(g, p, u * 0.22, w - p * 2, u * 0.62, u * 0.07, grad(g, 0, u * 0.22, w, u * 0.84, [[0, 'rgba(102,39,250,0.45)'], [1, 'rgba(0,187,255,0.3)']]));
       rr(g, p, u * 0.96, w * 0.7, u * 0.07, 4, 'rgba(255,255,255,0.85)');
-      rr(g, p, u * 1.1, w * 0.5, u * 0.045, 3, 'rgba(170,182,204,0.4)');
-      [0, 1].forEach(i => rr(g, p, u * 1.26 + i * u * 0.3, w - p * 2, u * 0.22, u * 0.05, 'rgba(170,182,204,0.12)'));
+      rr(g, p, u * 1.1, w * 0.5, u * 0.045, 3, 'rgba(140,170,255,0.4)');
+      [0, 1].forEach(i => rr(g, p, u * 1.26 + i * u * 0.3, w - p * 2, u * 0.22, u * 0.05, 'rgba(140,170,255,0.12)'));
       rr(g, p, h - u * 0.32, w - p * 2, u * 0.18, u * 0.05, C.cyan);
     },
     code: (g, w, h, u) => {
@@ -126,7 +126,7 @@ async function init() {
         [['const ', C.violet], ['app', C.white], [' = ', C.muted], ['build', C.cyan], ['(idea);', C.text]],
         [['await ', C.violet], ['app', C.white], ['.', C.muted], ['connect', C.cyan], ['(api);', C.text]],
         [['await ', C.violet], ['deploy', C.cyan], ['(app);', C.text]],
-        [['// from idea to digital experience', 'rgba(170,182,204,0.7)']],
+        [['// from idea to digital experience', 'rgba(140,170,255,0.7)']],
       ];
       lines.forEach((parts, i) => {
         let x = p; const y = p + u * 0.1 + i * u * 0.19;
@@ -135,7 +135,7 @@ async function init() {
     },
     api: (g, w, h, u) => {
       const p = u * 0.12;
-      rr(g, p, h / 2 - u * 0.08, u * 0.34, u * 0.16, u * 0.04, 'rgba(125,217,238,0.18)');
+      rr(g, p, h / 2 - u * 0.08, u * 0.34, u * 0.16, u * 0.04, 'rgba(0,187,255,0.18)');
       g.font = `700 ${u * 0.09}px ${MONO}`; g.fillStyle = C.cyan; g.fillText('GET', p + u * 0.07, h / 2 + u * 0.03);
       g.font = `500 ${u * 0.09}px ${MONO}`; g.fillStyle = C.text; g.fillText('/api/bookings', p + u * 0.44, h / 2 + u * 0.03);
     },
@@ -181,7 +181,7 @@ async function init() {
     const cv = document.createElement('canvas'); cv.width = cv.height = 128;
     const g = cv.getContext('2d');
     const rg = g.createRadialGradient(64, 64, 0, 64, 64, 64);
-    rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.18, 'rgba(125,217,238,0.9)'); rg.addColorStop(0.5, 'rgba(125,217,238,0.18)'); rg.addColorStop(1, 'rgba(125,217,238,0)');
+    rg.addColorStop(0, 'rgba(255,255,255,1)'); rg.addColorStop(0.18, 'rgba(0,187,255,0.9)'); rg.addColorStop(0.5, 'rgba(0,187,255,0.18)'); rg.addColorStop(1, 'rgba(0,187,255,0)');
     g.fillStyle = rg; g.fillRect(0, 0, 128, 128);
     const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
   })();
@@ -191,7 +191,7 @@ async function init() {
   const links = [['browser', 'dashboard'], ['browser', 'phone'], ['browser', 'code'], ['api', 'browser'], ['dashboard', 'db'], ['code', 'db'], ['api', 'dashboard']]
     .filter(([a, b]) => byKey[a] && byKey[b]);
   const curves = [];
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x5B8CFF, transparent: true, opacity: 0 });
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x2F5BFB, transparent: true, opacity: 0 });
   links.forEach(([a, b], i) => {
     const A = byKey[a].position.clone(), B = byKey[b].position.clone();
     const mid = A.clone().lerp(B, 0.5); mid.z += 1.2; mid.y += (i % 2 ? 0.5 : -0.5);
@@ -219,19 +219,19 @@ async function init() {
   // the logo's O, as a quiet ring behind the system
   const ring = new THREE.Mesh(
     new THREE.TorusGeometry(4.6, 0.012, 8, 160),
-    new THREE.MeshBasicMaterial({ color: 0x5B8CFF, transparent: true, opacity: 0 })
+    new THREE.MeshBasicMaterial({ color: 0x2F5BFB, transparent: true, opacity: 0 })
   );
   ring.position.set(0, 0, -3.5); ring.rotation.set(0.25, -0.45, 0);
   eco.add(ring);
   const ring2 = new THREE.Mesh(
     new THREE.TorusGeometry(3.4, 0.008, 8, 140),
-    new THREE.MeshBasicMaterial({ color: 0x8E8CF5, transparent: true, opacity: 0 })
+    new THREE.MeshBasicMaterial({ color: 0x6627FA, transparent: true, opacity: 0 })
   );
   ring2.position.set(0, 0, -3.2); ring2.rotation.set(0.25, -0.45, 0);
   eco.add(ring2);
 
   // speed-dash trail (from the logo) leaving the browser to the right
-  const dashMat = new THREE.MeshBasicMaterial({ color: 0x7DD9EE, transparent: true, opacity: 0 });
+  const dashMat = new THREE.MeshBasicMaterial({ color: 0x00BBFF, transparent: true, opacity: 0 });
   const dashes = [];
   if (!isSmall()) {
     [[0.9, 0.55], [0.55, 0.35], [0.2, 0.75], [-0.15, 0.4], [-0.5, 0.6]].forEach(([y, len], i) => {

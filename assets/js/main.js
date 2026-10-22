@@ -69,7 +69,7 @@
   const syncTheme = () => {
     const light = doc.dataset.theme === 'light';
     if (themeBtn) I18N.setAttr(themeBtn, 'aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
-    if (themeMeta) themeMeta.content = light ? '#F5F7FB' : '#05070D';
+    if (themeMeta) themeMeta.content = light ? '#F4F6FD' : '#050A1F';
   };
   themeBtn?.addEventListener('click', () => {
     doc.classList.add('theme-switching');
