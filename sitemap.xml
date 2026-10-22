@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Replace https://orafdev.com with the live domain. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://orafdev.com/</loc></url>
+  <url><loc>https://orafdev.com/work/car-rental.html</loc></url>
+  <url><loc>https://orafdev.com/work/next-stack.html</loc></url>
+  <url><loc>https://orafdev.com/work/israf-guard.html</loc></url>
+  <url><loc>https://orafdev.com/work/ozo-store.html</loc></url>
+  <url><loc>https://orafdev.com/work/ats-matching.html</loc></url>
+</urlset>

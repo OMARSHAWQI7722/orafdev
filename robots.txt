@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace with the live domain once deployed
+Sitemap: https://orafdev.com/sitemap.xml
