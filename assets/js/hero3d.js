@@ -262,7 +262,17 @@ async function init() {
 
   /* ---------- interaction ---------- */
   const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
-  if (!reduced && window.matchMedia('(pointer: fine)').matches) {
+  const finePtr = window.matchMedia('(pointer: fine)').matches;
+  let touchAt = -10; // last time a finger moved over the hero (s)
+  if (!reduced && !finePtr) {
+    hero.addEventListener('touchmove', e => {
+      const p = e.touches[0];
+      mouse.tx = (p.clientX / window.innerWidth) * 2 - 1;
+      mouse.ty = (p.clientY / window.innerHeight) * 2 - 1;
+      touchAt = time;
+    }, { passive: true });
+  }
+  if (!reduced && finePtr) {
     window.addEventListener('pointermove', e => {
       mouse.tx = (e.clientX / window.innerWidth) * 2 - 1;
       mouse.ty = (e.clientY / window.innerHeight) * 2 - 1;
@@ -279,6 +289,8 @@ async function init() {
   function frame() {
     time += Math.min(clock.getDelta(), 0.05);
     const t = time;
+    // on touch screens the scene sways on its own between touches
+    if (!finePtr && t - touchAt > 2.5) { mouse.tx = Math.sin(t * 0.38) * 0.65; mouse.ty = Math.cos(t * 0.29) * 0.4; }
     mouse.x += (mouse.tx - mouse.x) * 0.04;
     mouse.y += (mouse.ty - mouse.y) * 0.04;
 

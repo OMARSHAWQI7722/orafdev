@@ -231,6 +231,53 @@
     });
   }
 
+  /* ---------- Touch screens: the same motion, driven by scrolling ---------- */
+  if (!finePointer && !reduced) {
+    document.body.classList.add('has-touch');
+    const tilts = $$('[data-tilt]');
+    const medias = $$('[data-tilt-media]');
+    const deck = $$('.panel');
+    const live = [...tilts, ...deck, ...$$('.pillar'), ...$$('.plan')];
+    const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+    let queued = false;
+    const touchFx = () => {
+      queued = false;
+      const vh = window.innerHeight;
+      // -1 above the middle of the screen .. 0 centred .. 1 below
+      const offset = r => clamp(((r.top + r.height / 2) / vh - 0.5) * 2, -1, 1);
+      tilts.forEach(card => {
+        const r = card.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+        const d = offset(r);
+        card.style.setProperty('--rx', `${(-d * 7).toFixed(2)}deg`);
+        card.style.setProperty('--ry', `${(d * 3).toFixed(2)}deg`);
+        card.style.setProperty('--lx', '50%');
+        card.style.setProperty('--ly', `${((1 - d) * 50).toFixed(1)}%`);
+      });
+      medias.forEach(media => {
+        const inner = media.firstElementChild;
+        const r = media.getBoundingClientRect();
+        if (!inner || r.bottom < 0 || r.top > vh) return;
+        const d = offset(r);
+        inner.style.setProperty('--rx', `${(-d * 9).toFixed(2)}deg`);
+        inner.style.setProperty('--ry', `${(d * 6).toFixed(2)}deg`);
+      });
+      // project cards rise into place as they enter
+      deck.forEach(p => {
+        const r = p.getBoundingClientRect();
+        p.style.setProperty('--enter', clamp((vh - r.top) / (vh * 0.5), 0, 1).toFixed(3));
+      });
+      // the card in the middle of the screen plays its hover animation
+      live.forEach(el => {
+        const r = el.getBoundingClientRect();
+        el.classList.toggle('is-live', r.top < vh * 0.64 && r.bottom > vh * 0.36);
+      });
+    };
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(touchFx); } }, { passive: true });
+    window.addEventListener('resize', touchFx);
+    touchFx();
+  }
+
   /* ---------- Experience counters ---------- */
   $$('[data-count]').forEach(el => {
     const end = Number(el.dataset.count);
