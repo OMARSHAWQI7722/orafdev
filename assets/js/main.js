@@ -231,6 +231,20 @@
     });
   }
 
+  /* ---------- Project mockups: the desktop layout, zoomed to fit small cards ---------- */
+  const fitMocks = () => {
+    $$('.mock-rental, .mock-ats').forEach(mock => {
+      const media = mock.parentElement;
+      if (window.innerWidth > 600) { mock.style.zoom = ''; return; }
+      const cs = getComputedStyle(media);
+      const room = media.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const natural = mock.classList.contains('mock-ats') ? 800 : 760; // the widths set in styles.css
+      mock.style.zoom = Math.min(1, room / natural).toFixed(3);
+    });
+  };
+  fitMocks();
+  window.addEventListener('resize', fitMocks);
+
   /* ---------- Touch screens: the same motion, driven by scrolling ---------- */
   if (!finePointer && !reduced) {
     document.body.classList.add('has-touch');
@@ -261,11 +275,6 @@
         const d = offset(r);
         inner.style.setProperty('--rx', `${(-d * 9).toFixed(2)}deg`);
         inner.style.setProperty('--ry', `${(d * 6).toFixed(2)}deg`);
-      });
-      // project cards rise into place as they enter
-      deck.forEach(p => {
-        const r = p.getBoundingClientRect();
-        p.style.setProperty('--enter', clamp((vh - r.top) / (vh * 0.5), 0, 1).toFixed(3));
       });
       // the card in the middle of the screen plays its hover animation
       live.forEach(el => {
@@ -374,7 +383,7 @@
     ticking = false;
     const vh = window.innerHeight;
     // Each project panel recedes as the next one slides over it
-    const stacking = !reduced && window.innerWidth > 1024;
+    const stacking = !reduced;
     panels.forEach((p, i) => {
       const nextP = panels[i + 1];
       let s = 0;
